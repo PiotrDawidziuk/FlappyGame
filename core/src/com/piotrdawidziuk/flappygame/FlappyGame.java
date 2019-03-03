@@ -25,6 +25,10 @@ public class FlappyGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 
+		if (Gdx.input.justTouched()){
+			Gdx.app.log("Log","tapped!");
+		}
+
 		if (flapState==0){
 			flapState=1;
 		} else {
