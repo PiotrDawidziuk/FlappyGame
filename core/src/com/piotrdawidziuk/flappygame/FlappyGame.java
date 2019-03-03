@@ -12,6 +12,8 @@ public class FlappyGame extends ApplicationAdapter {
 
 	Texture[] birds;
 	int flapState =0;
+	float birdY = 0;
+
 
 	@Override
 	public void create() {
@@ -20,6 +22,7 @@ public class FlappyGame extends ApplicationAdapter {
 		birds = new Texture[2];
 		birds[0] = new Texture("bird.png");
 		birds[1] = new Texture("bird2.png");
+		birdY = Gdx.graphics.getHeight()/2-birds[flapState].getHeight()/2;
 	}
 
 	@Override
@@ -37,7 +40,7 @@ public class FlappyGame extends ApplicationAdapter {
 
 		batch.begin();
 		batch.draw(background,0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		batch.draw(birds[flapState],Gdx.graphics.getWidth()/2 - birds[flapState].getWidth()/2,Gdx.graphics.getHeight()/2-birds[flapState].getHeight()/2);
+		batch.draw(birds[flapState],Gdx.graphics.getWidth()/2 - birds[flapState].getWidth()/2,birdY);
 		batch.end();
 
 
