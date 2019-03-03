@@ -13,6 +13,7 @@ public class FlappyGame extends ApplicationAdapter {
 	Texture[] birds;
 	int flapState =0;
 	float birdY = 0;
+	float velocity=0;
 
 
 	@Override
@@ -32,11 +33,15 @@ public class FlappyGame extends ApplicationAdapter {
 			Gdx.app.log("Log","tapped!");
 		}
 
+		velocity++;
+		birdY-=velocity;
+
 		if (flapState==0){
 			flapState=1;
 		} else {
 			flapState=0;
 		}
+
 
 		batch.begin();
 		batch.draw(background,0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
