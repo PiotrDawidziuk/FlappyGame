@@ -16,6 +16,7 @@ public class FlappyGame extends ApplicationAdapter {
 	float velocity=0;
 
 	int gamestate = 0;
+	float gravity = 2;
 
 
 	@Override
@@ -31,19 +32,17 @@ public class FlappyGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 
-		if (Gdx.input.justTouched()){
-			Gdx.app.log("Log","tapped!");
-			gamestate=1;
-		}
-
 		if (gamestate!=0) {
-			velocity++;
+
+			if (Gdx.input.justTouched()){
+				velocity = -30;
+			}
+			velocity = velocity+gravity;
 			birdY -= velocity;
 
 		}else{
 
 			if (Gdx.input.justTouched()){
-				Gdx.app.log("Log","tapped!");
 				gamestate=1;
 			}
 
