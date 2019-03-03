@@ -15,6 +15,8 @@ public class FlappyGame extends ApplicationAdapter {
 	float birdY = 0;
 	float velocity=0;
 
+	int gamestate = 0;
+
 
 	@Override
 	public void create() {
@@ -31,23 +33,31 @@ public class FlappyGame extends ApplicationAdapter {
 
 		if (Gdx.input.justTouched()){
 			Gdx.app.log("Log","tapped!");
+			gamestate=1;
 		}
 
-		velocity++;
-		birdY-=velocity;
+		if (gamestate!=0) {
+			velocity++;
+			birdY -= velocity;
 
-		if (flapState==0){
-			flapState=1;
+		}else{
+
+			if (Gdx.input.justTouched()){
+				Gdx.app.log("Log","tapped!");
+				gamestate=1;
+			}
+
+		}
+
+		if (flapState == 0) {
+			flapState = 1;
 		} else {
-			flapState=0;
+			flapState = 0;
 		}
-
 
 		batch.begin();
-		batch.draw(background,0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		batch.draw(birds[flapState],Gdx.graphics.getWidth()/2 - birds[flapState].getWidth()/2,birdY);
+		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
 		batch.end();
-
-
 	}
 }
