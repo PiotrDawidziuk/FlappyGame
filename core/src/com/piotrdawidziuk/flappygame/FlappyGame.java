@@ -18,6 +18,9 @@ public class FlappyGame extends ApplicationAdapter {
 	int gamestate = 0;
 	float gravity = 2;
 
+	Texture topTube;
+	Texture bottomTube;
+
 
 	@Override
 	public void create() {
@@ -27,6 +30,10 @@ public class FlappyGame extends ApplicationAdapter {
 		birds[0] = new Texture("bird.png");
 		birds[1] = new Texture("bird2.png");
 		birdY = Gdx.graphics.getHeight()/2-birds[flapState].getHeight()/2;
+
+		topTube = new Texture("toptube.png");
+		bottomTube = new Texture("bottomtube.png");
+
 	}
 
 	@Override
