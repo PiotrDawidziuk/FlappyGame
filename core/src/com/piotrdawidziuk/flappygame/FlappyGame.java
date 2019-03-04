@@ -56,11 +56,11 @@ public class FlappyGame extends ApplicationAdapter {
 
 			if (Gdx.input.justTouched()){
 				velocity = -30;
-				tubeOffset = (randomGenerator.nextFloat()-0.5f) * (Gdx.graphics.getHeight()-gap);
+				tubeOffset = (randomGenerator.nextFloat()-0.5f) * (Gdx.graphics.getHeight()-gap - 200);
 			}
 
-			batch.draw(topTube,Gdx.graphics.getWidth()/2-topTube.getWidth()/2,Gdx.graphics.getHeight()/2+gap/2 );
-			batch.draw(bottomTube,Gdx.graphics.getWidth()/2-bottomTube.getWidth()/2,Gdx.graphics.getHeight()/2-gap/2-bottomTube.getHeight());
+			batch.draw(topTube,Gdx.graphics.getWidth()/2-topTube.getWidth()/2,Gdx.graphics.getHeight()/2+gap/2 + tubeOffset);
+			batch.draw(bottomTube,Gdx.graphics.getWidth()/2-bottomTube.getWidth()/2,Gdx.graphics.getHeight()/2-gap/2-bottomTube.getHeight()+tubeOffset);
 
 
 			if (birdY > 0 || velocity <0) {
