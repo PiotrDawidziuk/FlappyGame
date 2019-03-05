@@ -26,9 +26,12 @@ public class FlappyGame extends ApplicationAdapter {
 
 	float maxTubeOffset;
 	Random randomGenerator;
-	float tubeOffset;
 	float tubeVelocity = 4;
-	float tubeX;
+	int numberOfTubes = 4;
+	float[] tubeX = new float[numberOfTubes];
+	float[] tubeOffset = new float[numberOfTubes];
+
+	float distsanceBetweenTubes;
 
 	@Override
 	public void create() {
@@ -44,7 +47,16 @@ public class FlappyGame extends ApplicationAdapter {
 
 		maxTubeOffset = Gdx.graphics.getHeight()/-gap/2-100;
 		randomGenerator = new Random();
-		tubeX = Gdx.graphics.getWidth()/2-topTube.getWidth()/2;
+		distsanceBetweenTubes = Gdx.graphics.getBackBufferWidth()/2;
+
+		for (int i=0; i < numberOfTubes; i++) {
+			tubeOffset[i] = (randomGenerator.nextFloat()-0.5f) * (Gdx.graphics.getHeight()-gap - 200);
+
+			tubeX[i] = Gdx.graphics.getWidth()/2-topTube.getWidth()/2 + 1 * distsanceBetweenTubes;
+
+
+		}
+
 
 	}
 
@@ -60,13 +72,10 @@ public class FlappyGame extends ApplicationAdapter {
 
 			if (Gdx.input.justTouched()){
 				velocity = -30;
-				tubeOffset = (randomGenerator.nextFloat()-0.5f) * (Gdx.graphics.getHeight()-gap - 200);
-
-				tubeX = Gdx.graphics.getWidth()/2-topTube.getWidth()/2;
 
 			}
 
-			tubeX = tubeX-4;
+			tubeX = tubeX-tubeVelocity;
 
 			batch.draw(topTube,tubeX,Gdx.graphics.getHeight()/2+gap/2 + tubeOffset);
 			batch.draw(bottomTube,tubeX,Gdx.graphics.getHeight()/2-gap/2-bottomTube.getHeight()+tubeOffset);
