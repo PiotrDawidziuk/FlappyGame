@@ -31,7 +31,7 @@ public class FlappyGame extends ApplicationAdapter {
 	float[] tubeX = new float[numberOfTubes];
 	float[] tubeOffset = new float[numberOfTubes];
 
-	float distsanceBetweenTubes;
+	float distanceBetweenTubes;
 
 	@Override
 	public void create() {
@@ -47,12 +47,12 @@ public class FlappyGame extends ApplicationAdapter {
 
 		maxTubeOffset = Gdx.graphics.getHeight()/-gap/2-100;
 		randomGenerator = new Random();
-		distsanceBetweenTubes = Gdx.graphics.getBackBufferWidth()/2;
+		distanceBetweenTubes = Gdx.graphics.getWidth()/2;
 
 		for (int i=0; i < numberOfTubes; i++) {
 			tubeOffset[i] = (randomGenerator.nextFloat()-0.5f) * (Gdx.graphics.getHeight()-gap - 200);
 
-			tubeX[i] = Gdx.graphics.getWidth()/2-topTube.getWidth()/2 + 1 * distsanceBetweenTubes;
+			tubeX[i] = Gdx.graphics.getWidth()/2-topTube.getWidth()/2 + 1 * distanceBetweenTubes;
 
 
 		}
@@ -74,12 +74,13 @@ public class FlappyGame extends ApplicationAdapter {
 				velocity = -30;
 
 			}
+			for (int i=0; i < numberOfTubes; i++) {
 
-			tubeX = tubeX-tubeVelocity;
+				tubeX[i] = tubeX[i] - tubeVelocity;
 
-			batch.draw(topTube,tubeX,Gdx.graphics.getHeight()/2+gap/2 + tubeOffset);
-			batch.draw(bottomTube,tubeX,Gdx.graphics.getHeight()/2-gap/2-bottomTube.getHeight()+tubeOffset);
-
+				batch.draw(topTube, tubeX[i], Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset[i]);
+				batch.draw(bottomTube, tubeX[i], Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset[i]);
+			}
 
 			if (birdY > 0 || velocity <0) {
 				velocity = velocity + gravity;
