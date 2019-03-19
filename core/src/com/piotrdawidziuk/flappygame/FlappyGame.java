@@ -77,6 +77,8 @@ public class FlappyGame extends ApplicationAdapter {
 
 				if (tubeX[i] < - topTube.getWidth()){
 					tubeX[i]+=numberOfTubes*distanceBetweenTubes;
+					maxTubeOffset = Gdx.graphics.getHeight()/2-gap/2-100;
+
 				}
 				tubeX[i] = tubeX[i] - tubeVelocity;
 
