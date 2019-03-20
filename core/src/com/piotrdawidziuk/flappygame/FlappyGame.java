@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
@@ -24,6 +25,11 @@ public class FlappyGame extends ApplicationAdapter {
 	float birdY = 0;
 	float velocity=0;
 	Circle birdCircle;
+
+	int score = 0;
+	int scoringTube = 0;
+
+	BitmapFont font;
 
 	int gamestate = 0;
 	float gravity = 2;
@@ -51,6 +57,9 @@ public class FlappyGame extends ApplicationAdapter {
 
 		//shapeRenderer = new ShapeRenderer();
 		birdCircle = new Circle();
+		font = new BitmapFont();
+		font.setColor(Color.WHITE);
+		font.getData().setScale(10);
 
 		birds = new Texture[2];
 		birds[0] = new Texture("bird.png");
@@ -89,6 +98,18 @@ public class FlappyGame extends ApplicationAdapter {
 
 		if (gamestate!=0) {
 
+			if (tubeX[scoringTube] < Gdx.graphics.getWidth() / 2){
+
+				score++;
+				Gdx.app.log("SCORE:",String.valueOf(score));
+
+				if (scoringTube < numberOfTubes-1){
+					scoringTube++;
+				}else {
+					scoringTube = 0;
+				}
+			}
+
 			if (Gdx.input.justTouched()){
 				velocity = -30;
 
@@ -98,8 +119,13 @@ public class FlappyGame extends ApplicationAdapter {
 				if (tubeX[i] < - topTube.getWidth()){
 					tubeX[i]+=numberOfTubes*distanceBetweenTubes;
 					tubeOffset[i] = (randomGenerator.nextFloat()-0.5f) * (Gdx.graphics.getHeight()-gap - 200);
+
+				} else {
+
+					tubeX[i] = tubeX[i] - tubeVelocity;
+
+
 				}
-				tubeX[i] = tubeX[i] - tubeVelocity;
 
 				batch.draw(topTube, tubeX[i], Gdx.graphics.getHeight() / 2 + gap / 2 + tubeOffset[i]);
 				batch.draw(bottomTube, tubeX[i], Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset[i]);
@@ -130,8 +156,12 @@ public class FlappyGame extends ApplicationAdapter {
 		}
 
 		batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
+
+		font.draw(batch,String.valueOf(score),100,200);
 		batch.end();
 		birdCircle.set(Gdx.graphics.getWidth()/2,birdY+birds[flapState].getHeight()/2,birds[flapState].getHeight()/2);
+
+
 
 		//shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		//shapeRenderer.setColor(Color.RED);
@@ -142,7 +172,7 @@ public class FlappyGame extends ApplicationAdapter {
 			//shapeRenderer.rect(tubeX[i], Gdx.graphics.getHeight() / 2 - gap / 2 - bottomTube.getHeight() + tubeOffset[i],bottomTube.getWidth(),bottomTube.getHeight());
 
 			if (Intersector.overlaps(birdCircle,topTubeRectangles[i]) || Intersector.overlaps(birdCircle,bottomTubeRectangles[i])){
-				Gdx.app.log("Collision", "YES");
+				//Gdx.app.log("Collision", "YES");
 
 
 			}
