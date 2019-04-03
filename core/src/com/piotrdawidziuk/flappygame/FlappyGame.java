@@ -169,7 +169,7 @@ public class FlappyGame extends ApplicationAdapter {
 				score = 0;
 				scoringTube = 0;
 				velocity = 0;
-				
+
 			}
 
 
